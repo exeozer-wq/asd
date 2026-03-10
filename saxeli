@@ -1,1 +1,119 @@
-print("hello nigger")
+--// Draggable Hacker GUI - Get Money Exploit
+--// by CommanderX
+
+local player = game.Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "HaxGui"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 220, 0, 90)           -- bigger size
+frame.Position = UDim2.new(0.5, -110, 0.2, 0)   -- starting position
+frame.BackgroundColor3 = Color3.fromRGB(8, 8, 12)
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true                              -- makes the frame movable
+frame.Parent = gui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 12)
+uiCorner.Parent = frame
+
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Color = Color3.fromRGB(0, 255, 110)     -- neon green
+uiStroke.Thickness = 2.5
+uiStroke.Transparency = 0.35
+uiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+uiStroke.Parent = frame
+
+local glow = Instance.new("UIGradient")
+glow.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 90)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 180, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(120, 80, 255))
+}
+glow.Rotation = 35
+glow.Transparency = NumberSequence.new{
+    NumberSequenceKeypoint.new(0, 0.25),
+    NumberSequenceKeypoint.new(1, 0.25)
+}
+glow.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundTransparency = 1
+title.Text = "MONEY GETTER 🤑"
+title.TextColor3 = Color3.fromRGB(0, 255, 140)
+title.Font = Enum.Font.Code
+title.TextSize = 24
+title.TextStrokeTransparency = 0.75
+title.TextStrokeColor3 = Color3.fromRGB(0,0,0)
+title.Parent = frame
+
+local btn = Instance.new("TextButton")
+btn.Size = UDim2.new(0.9, 0, 0, 40)
+btn.Position = UDim2.new(0.05, 0, 0.38, 0)
+btn.BackgroundColor3 = Color3.fromRGB(15, 15, 22)
+btn.BorderSizePixel = 0
+btn.Text = "COLLECT → 999T"
+btn.TextColor3 = Color3.fromRGB(0, 255, 130)
+btn.Font = Enum.Font.Code
+btn.TextSize = 26
+btn.TextStrokeTransparency = 0.8
+btn.Parent = frame
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0, 8)
+btnCorner.Parent = btn
+
+local btnStroke = Instance.new("UIStroke")
+btnStroke.Color = Color3.fromRGB(0, 220, 100)
+btnStroke.Thickness = 1.5
+btnStroke.Transparency = 0.5
+btnStroke.Parent = btn
+
+-- Hover effect
+btn.MouseEnter:Connect(function()
+    btn:TweenSize(UDim2.new(0.92, 0, 0, 44), "Out", "Quad", 0.18, true)
+    btnStroke.Transparency = 0.1
+    uiStroke.Transparency = 0
+end)
+
+btn.MouseLeave:Connect(function()
+    btn:TweenSize(UDim2.new(0.9, 0, 0, 40), "Out", "Quad", 0.18, true)
+    btnStroke.Transparency = 0.5
+    uiStroke.Transparency = 0.35
+end)
+
+-- Credit at bottom-right inside frame
+local credit = Instance.new("TextLabel")
+credit.Size = UDim2.new(0, 110, 0, 18)
+credit.Position = UDim2.new(1, -115, 1, -22)
+credit.BackgroundTransparency = 1
+credit.Text = "By CommanderX"
+credit.TextColor3 = Color3.fromRGB(110, 110, 255)
+credit.Font = Enum.Font.Code
+credit.TextSize = 15
+credit.TextTransparency = 0.45
+credit.TextXAlignment = Enum.TextXAlignment.Right
+credit.Parent = frame
+
+-- Exploit fire (one click = one fire)
+btn.MouseButton1Click:Connect(function()
+    pcall(function()
+        local vec = Vector3.new(-714.8045043945312, 1.951197862625122, 1227.95166015625)
+        
+        local args = { vec, 99999999999999 }
+        
+        game:GetService("ReplicatedStorage")
+            :WaitForChild("DropperEvents")
+            :WaitForChild("CollectDrop")
+            :FireServer(unpack(args))
+    end)
+    
+    -- Flash feedback
+    btn.TextColor3 = Color3.fromRGB(255, 60, 60)
+    task.wait(0.12)
+    btn.TextColor3 = Color3.fromRGB(0, 255, 130)
+end)
