@@ -1,0 +1,328 @@
+--// COMMANDERX HUB - Infinite Eat + Infinite Money + Infinite Spins
+--// Draggable, neon hacker style, now with 3 full pages
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui")
+gui.Name = "CommanderXHub"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+-- Bigger main frame (taller for 3 sections)
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 400, 0, 570)
+mainFrame.Position = UDim2.new(0.5, -200, 0.35, -285)
+mainFrame.BackgroundColor3 = Color3.fromRGB(6, 6, 10)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = gui
+
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 14)
+uiCorner.Parent = mainFrame
+
+local uiStroke = Instance.new("UIStroke")
+uiStroke.Color = Color3.fromRGB(0, 255, 120)
+uiStroke.Thickness = 3
+uiStroke.Transparency = 0.25
+uiStroke.Parent = mainFrame
+
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 255, 100)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 140, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 80, 255))
+}
+gradient.Rotation = 50
+gradient.Parent = mainFrame
+
+-- Hub Title
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 50)
+title.BackgroundTransparency = 1
+title.Text = "COMMANDERX HUB"
+title.TextColor3 = Color3.fromRGB(0, 255, 150)
+title.Font = Enum.Font.Code
+title.TextSize = 32
+title.TextStrokeTransparency = 0.65
+title.Parent = mainFrame
+
+-- ==================== INFINITE EAT ====================
+local eatSection = Instance.new("TextLabel")
+eatSection.Size = UDim2.new(1, -30, 0, 35)
+eatSection.Position = UDim2.new(0, 15, 0, 60)
+eatSection.BackgroundTransparency = 1
+eatSection.Text = "INFINITE EAT"
+eatSection.TextColor3 = Color3.fromRGB(0, 255, 140)
+eatSection.Font = Enum.Font.Code
+eatSection.TextSize = 24
+eatSection.TextStrokeTransparency = 0.75
+eatSection.Parent = mainFrame
+
+local eatContent = Instance.new("Frame")
+eatContent.Size = UDim2.new(1, -40, 0, 100)
+eatContent.Position = UDim2.new(0, 20, 0, 100)
+eatContent.BackgroundTransparency = 1
+eatContent.Parent = mainFrame
+
+local eatToggle = Instance.new("TextButton")
+eatToggle.Size = UDim2.new(0.9, 0, 0, 60)
+eatToggle.Position = UDim2.new(0.05, 0, 0.1, 0)
+eatToggle.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+eatToggle.BorderSizePixel = 0
+eatToggle.Text = "ENABLE INFINITE EAT"
+eatToggle.TextColor3 = Color3.fromRGB(0, 255, 140)
+eatToggle.Font = Enum.Font.Code
+eatToggle.TextSize = 26
+eatToggle.Parent = eatContent
+
+local eatCorner = Instance.new("UICorner")
+eatCorner.CornerRadius = UDim.new(0, 10)
+eatCorner.Parent = eatToggle
+
+local eatStroke = Instance.new("UIStroke")
+eatStroke.Color = Color3.fromRGB(0, 255, 120)
+eatStroke.Thickness = 2
+eatStroke.Parent = eatToggle
+
+local eatStatus = Instance.new("TextLabel")
+eatStatus.Size = UDim2.new(0.9, 0, 0, 25)
+eatStatus.Position = UDim2.new(0.05, 0, 0.75, 0)
+eatStatus.BackgroundTransparency = 1
+eatStatus.Text = "Status: DISABLED"
+eatStatus.TextColor3 = Color3.fromRGB(255, 70, 70)
+eatStatus.Font = Enum.Font.Code
+eatStatus.TextSize = 18
+eatStatus.Parent = eatContent
+
+-- ==================== INFINITE MONEY ====================
+local moneySection = Instance.new("TextLabel")
+moneySection.Size = UDim2.new(1, -30, 0, 35)
+moneySection.Position = UDim2.new(0, 15, 0, 210)
+moneySection.BackgroundTransparency = 1
+moneySection.Text = "INFINITE MONEY"
+moneySection.TextColor3 = Color3.fromRGB(255, 215, 0)
+moneySection.Font = Enum.Font.Code
+moneySection.TextSize = 24
+moneySection.TextStrokeTransparency = 0.75
+moneySection.Parent = mainFrame
+
+local moneyContent = Instance.new("Frame")
+moneyContent.Size = UDim2.new(1, -40, 0, 100)
+moneyContent.Position = UDim2.new(0, 20, 0, 250)
+moneyContent.BackgroundTransparency = 1
+moneyContent.Parent = mainFrame
+
+local moneyToggle = Instance.new("TextButton")
+moneyToggle.Size = UDim2.new(0.9, 0, 0, 60)
+moneyToggle.Position = UDim2.new(0.05, 0, 0.1, 0)
+moneyToggle.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+moneyToggle.BorderSizePixel = 0
+moneyToggle.Text = "ENABLE INFINITE MONEY"
+moneyToggle.TextColor3 = Color3.fromRGB(255, 215, 0)
+moneyToggle.Font = Enum.Font.Code
+moneyToggle.TextSize = 26
+moneyToggle.Parent = moneyContent
+
+local moneyCorner = Instance.new("UICorner")
+moneyCorner.CornerRadius = UDim.new(0, 10)
+moneyCorner.Parent = moneyToggle
+
+local moneyStroke = Instance.new("UIStroke")
+moneyStroke.Color = Color3.fromRGB(255, 215, 0)
+moneyStroke.Thickness = 2
+moneyStroke.Parent = moneyToggle
+
+local moneyStatus = Instance.new("TextLabel")
+moneyStatus.Size = UDim2.new(0.9, 0, 0, 25)
+moneyStatus.Position = UDim2.new(0.05, 0, 0.75, 0)
+moneyStatus.BackgroundTransparency = 1
+moneyStatus.Text = "Status: DISABLED"
+moneyStatus.TextColor3 = Color3.fromRGB(255, 70, 70)
+moneyStatus.Font = Enum.Font.Code
+moneyStatus.TextSize = 18
+moneyStatus.Parent = moneyContent
+
+-- ==================== INFINITE SPINS (NEW) ====================
+local spinsSection = Instance.new("TextLabel")
+spinsSection.Size = UDim2.new(1, -30, 0, 35)
+spinsSection.Position = UDim2.new(0, 15, 0, 360)
+spinsSection.BackgroundTransparency = 1
+spinsSection.Text = "INFINITE SPINS"
+spinsSection.TextColor3 = Color3.fromRGB(180, 100, 255)   -- purple spins vibe
+spinsSection.Font = Enum.Font.Code
+spinsSection.TextSize = 24
+spinsSection.TextStrokeTransparency = 0.75
+spinsSection.Parent = mainFrame
+
+local spinsContent = Instance.new("Frame")
+spinsContent.Size = UDim2.new(1, -40, 0, 100)
+spinsContent.Position = UDim2.new(0, 20, 0, 400)
+spinsContent.BackgroundTransparency = 1
+spinsContent.Parent = mainFrame
+
+local spinsToggle = Instance.new("TextButton")
+spinsToggle.Size = UDim2.new(0.9, 0, 0, 60)
+spinsToggle.Position = UDim2.new(0.05, 0, 0.1, 0)
+spinsToggle.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+spinsToggle.BorderSizePixel = 0
+spinsToggle.Text = "ENABLE INFINITE SPINS"
+spinsToggle.TextColor3 = Color3.fromRGB(180, 100, 255)
+spinsToggle.Font = Enum.Font.Code
+spinsToggle.TextSize = 26
+spinsToggle.Parent = spinsContent
+
+local spinsCorner = Instance.new("UICorner")
+spinsCorner.CornerRadius = UDim.new(0, 10)
+spinsCorner.Parent = spinsToggle
+
+local spinsStroke = Instance.new("UIStroke")
+spinsStroke.Color = Color3.fromRGB(180, 100, 255)
+spinsStroke.Thickness = 2
+spinsStroke.Parent = spinsToggle
+
+local spinsStatus = Instance.new("TextLabel")
+spinsStatus.Size = UDim2.new(0.9, 0, 0, 25)
+spinsStatus.Position = UDim2.new(0.05, 0, 0.75, 0)
+spinsStatus.BackgroundTransparency = 1
+spinsStatus.Text = "Status: DISABLED"
+spinsStatus.TextColor3 = Color3.fromRGB(255, 70, 70)
+spinsStatus.Font = Enum.Font.Code
+spinsStatus.TextSize = 18
+spinsStatus.Parent = spinsContent
+
+-- Bottom middle credit
+local credit = Instance.new("TextLabel")
+credit.Size = UDim2.new(0, 400, 0, 30)
+credit.Position = UDim2.new(0.5, -200, 1, -40)
+credit.BackgroundTransparency = 1
+credit.Text = "CommanderX hub"
+credit.TextColor3 = Color3.fromRGB(110, 110, 255)
+credit.Font = Enum.Font.Code
+credit.TextSize = 20
+credit.TextTransparency = 0.35
+credit.Parent = gui
+
+-- ======================== LOGIC ========================
+
+-- Eat remote
+local eatRemote = ReplicatedStorage:WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Food"):WaitForChild("[C-S]TryEatFood")
+
+-- Money remote
+local moneyRemote = ReplicatedStorage:WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Game"):WaitForChild("[C-S]PlayerEnd")
+
+-- Spins remote (new)
+local spinsRemote = ReplicatedStorage:WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("SeasonPass"):WaitForChild("[C-S]TryGetReward")
+
+local eatEnabled = false
+local moneyEnabled = false
+local spinsEnabled = false
+
+local eatConn, moneyConn, spinsConn = nil, nil, nil
+
+-- Eat loop
+local function startEat()
+    if eatConn then eatConn:Disconnect() end
+    eatConn = game:GetService("RunService").Heartbeat:Connect(function()
+        if not eatEnabled then return end
+        pcall(function() eatRemote:FireServer(999999) end)
+        task.wait(0.065)
+    end)
+end
+
+-- Money loop
+local function startMoney()
+    if moneyConn then moneyConn:Disconnect() end
+    moneyConn = game:GetService("RunService").Heartbeat:Connect(function()
+        if not moneyEnabled then return end
+        pcall(function() moneyRemote:FireServer("Fight15") end)
+        task.wait(0.12)
+    end)
+end
+
+-- Spins loop (fires "1", 4)
+local function startSpins()
+    if spinsConn then spinsConn:Disconnect() end
+    spinsConn = game:GetService("RunService").Heartbeat:Connect(function()
+        if not spinsEnabled then return end
+        pcall(function()
+            spinsRemote:FireServer("1", 4)
+        end)
+        task.wait(0.09)   -- balanced speed for spins
+    end)
+end
+
+-- Eat toggle
+eatToggle.MouseButton1Click:Connect(function()
+    eatEnabled = not eatEnabled
+    if eatEnabled then
+        eatToggle.Text = "DISABLE INFINITE EAT"
+        eatToggle.TextColor3 = Color3.fromRGB(255, 70, 70)
+        eatToggle.BackgroundColor3 = Color3.fromRGB(35, 10, 10)
+        eatStatus.Text = "Status: ENABLED"
+        eatStatus.TextColor3 = Color3.fromRGB(0, 255, 110)
+        startEat()
+    else
+        eatToggle.Text = "ENABLE INFINITE EAT"
+        eatToggle.TextColor3 = Color3.fromRGB(0, 255, 140)
+        eatToggle.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+        eatStatus.Text = "Status: DISABLED"
+        eatStatus.TextColor3 = Color3.fromRGB(255, 70, 70)
+        if eatConn then eatConn:Disconnect() eatConn = nil end
+    end
+end)
+
+-- Money toggle
+moneyToggle.MouseButton1Click:Connect(function()
+    moneyEnabled = not moneyEnabled
+    if moneyEnabled then
+        moneyToggle.Text = "DISABLE INFINITE MONEY"
+        moneyToggle.TextColor3 = Color3.fromRGB(255, 70, 70)
+        moneyToggle.BackgroundColor3 = Color3.fromRGB(35, 10, 10)
+        moneyStatus.Text = "Status: ENABLED"
+        moneyStatus.TextColor3 = Color3.fromRGB(0, 255, 110)
+        startMoney()
+    else
+        moneyToggle.Text = "ENABLE INFINITE MONEY"
+        moneyToggle.TextColor3 = Color3.fromRGB(255, 215, 0)
+        moneyToggle.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+        moneyStatus.Text = "Status: DISABLED"
+        moneyStatus.TextColor3 = Color3.fromRGB(255, 70, 70)
+        if moneyConn then moneyConn:Disconnect() moneyConn = nil end
+    end
+end)
+
+-- Spins toggle (NEW)
+spinsToggle.MouseButton1Click:Connect(function()
+    spinsEnabled = not spinsEnabled
+    if spinsEnabled then
+        spinsToggle.Text = "DISABLE INFINITE SPINS"
+        spinsToggle.TextColor3 = Color3.fromRGB(255, 70, 70)
+        spinsToggle.BackgroundColor3 = Color3.fromRGB(35, 10, 10)
+        spinsStatus.Text = "Status: ENABLED"
+        spinsStatus.TextColor3 = Color3.fromRGB(0, 255, 110)
+        startSpins()
+    else
+        spinsToggle.Text = "ENABLE INFINITE SPINS"
+        spinsToggle.TextColor3 = Color3.fromRGB(180, 100, 255)
+        spinsToggle.BackgroundColor3 = Color3.fromRGB(18, 18, 28)
+        spinsStatus.Text = "Status: DISABLED"
+        spinsStatus.TextColor3 = Color3.fromRGB(255, 70, 70)
+        if spinsConn then spinsConn:Disconnect() spinsConn = nil end
+    end
+end)
+
+-- Hover effects for all buttons
+eatToggle.MouseEnter:Connect(function() eatToggle:TweenSize(UDim2.new(0.92, 0, 0, 64), "Out", "Quad", 0.15, true) end)
+eatToggle.MouseLeave:Connect(function() eatToggle:TweenSize(UDim2.new(0.9, 0, 0, 60), "Out", "Quad", 0.15, true) end)
+
+moneyToggle.MouseEnter:Connect(function() moneyToggle:TweenSize(UDim2.new(0.92, 0, 0, 64), "Out", "Quad", 0.15, true) end)
+moneyToggle.MouseLeave:Connect(function() moneyToggle:TweenSize(UDim2.new(0.9, 0, 0, 60), "Out", "Quad", 0.15, true) end)
+
+spinsToggle.MouseEnter:Connect(function() spinsToggle:TweenSize(UDim2.new(0.92, 0, 0, 64), "Out", "Quad", 0.15, true) end)
+spinsToggle.MouseLeave:Connect(function() spinsToggle:TweenSize(UDim2.new(0.9, 0, 0, 60), "Out", "Quad", 0.15, true) end)
+
+print("✅ CommanderX Hub updated – INFINITE SPINS page added!")
