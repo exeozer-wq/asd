@@ -1,0 +1,17 @@
+// server.js
+const express = require('express');
+const app = express();
+app.use(express.json());
+
+let queue = [];
+
+app.post('/command', (req, res) => {
+    queue.push(req.body.cmd);
+    res.json({ ok: true });
+});
+
+app.get('/poll', (req, res) => {
+    res.json({ commands: queue.splice(0) });
+});
+
+app.listen(3000, () => console.log('Server running on port 3000'));
